@@ -25,7 +25,7 @@ VALIDATE () {
         echo -e "$2 ...$R FAILED$N" | tee -a $LOG_FILE
         exit 2
     else 
-        echo "$2 ...$G SUCCESS$N" | tee -a $LOG_FILE
+        echo -e "$2 ...$G SUCCESS$N" | tee -a $LOG_FILE
     fi
 }
 
