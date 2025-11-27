@@ -2,7 +2,7 @@
 
 START_TIME=$(date +%s)
 
-PATH=$PWD
+FILE_PATH=$PWD
 
 R="\e[31m"
 G="\e[32m"
