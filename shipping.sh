@@ -15,6 +15,12 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+LOG_FOLDER="/var/log/shell-roboshop"
+SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
+LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
+
+mkdir -p $LOG_FOLDER
+
 VALIDATE () {
     if [ $1 -ne 0 ]; then
         echo -e "$2 ...$R FAILED$N" | tee -a $LOG_FILE
@@ -25,12 +31,12 @@ VALIDATE () {
 }
 
 dnf install maven -y &>> $LOG_FILE
-VALIDATE $? ""
+VALIDATE $? "Installing maven"
 
 id roboshop &>> $LOG_FILE
 if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-    VALIDATE $? ""
+    VALIDATE $? "Creating system user"
 else
     echo -e "System user already exist ...$Y SKIPPING$N"
 fi
