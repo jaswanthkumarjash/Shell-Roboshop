@@ -2,6 +2,8 @@
 
 START_TIME=$(date +%s)
 
+path=$PWD
+
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -63,7 +65,7 @@ VALIDATE $? "Unzipping the app code"
 npm install &>> $LOG_FILE
 VALIDATE $? "Installing dependencies"
 
-cp ./catalogue.service /etc/systemd/system/catalogue.service
+cp $PWD/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Creating systemd service"
 
 systemctl daemon-reload
@@ -75,7 +77,7 @@ VALIDATE $? "Enabling catalogue service"
 systemctl start catalogue
 VALIDATE $? "Starting catalogue service"
 
-cp ./mongo.repo /etc/mongo.repo
+cp ./mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding mongo repo"
 
 dnf install mongodb-mongosh -y &>> $LOG_FILE
