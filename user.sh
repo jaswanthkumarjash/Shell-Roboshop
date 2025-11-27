@@ -45,6 +45,7 @@ if [ $? -ne 0 ]; then
     VALIDATE $? "Creating a system user"
 else
     echo -e "System user already exist ...$Y SKIPPING$N"
+fi
 
 mkdir -p /app
 VALIDATE $? "Creating app directory"
