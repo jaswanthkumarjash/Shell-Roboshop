@@ -42,12 +42,11 @@ VALIDATE $? "Enabling Rabbitmq server"
 systemctl start rabbitmq-server
 VALIDATE $? "Start Rabbitmq server"
 
-id roboshop &>> $LOG_FILE
-if [ $? -ne 0 ]; then
+if rabbitmqctl list_users | grep -q "^roboshop"; then
+    echo -e "Roboshop user already exists ...$Y SKIPPING$N"
+else
     rabbitmqctl add_user roboshop roboshop123 &>> $LOG_FILE
     VALIDATE $? "Adding roboshop user"
-else
-    echo -e "Roboshop user already exists ...$Y SKIPPING$N"
 fi
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOG_FILE
