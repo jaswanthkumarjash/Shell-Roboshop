@@ -4,6 +4,8 @@ START_TIME=$(date +%s)
 
 FILE_PATH=$PWD
 
+MYSQL_HOST=mysql.jaswanthjash12.shop
+
 USERID=$(id -u)
 if [ $USERID -ne 0 ]; then
     echo "ERROR:: You dont have root access"
