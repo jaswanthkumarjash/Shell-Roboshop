@@ -13,7 +13,7 @@ LOG_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
 
-mkdir -p $LOG_FILE
+mkdir -p $LOG_FOLDER
 
 USERID=$(id -u)
 if [ $USERID -ne 0 ]; then
@@ -64,7 +64,7 @@ VALIDATE $? "Unzipping the user application code"
 npm install
 VALIDATE $? "Installing the dependencies"
 
-cp $PATH/user.service /etc/systemd/system/user.service
+cp $FILE_PATH/user.service /etc/systemd/system/user.service
 VALIDATE $? "Creating systemd service"
 
 systemctl daemon-reload
