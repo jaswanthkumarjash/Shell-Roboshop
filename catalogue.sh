@@ -15,16 +15,16 @@ mkdir -p $LOG_FOLDER
 
 USERID=$(id -u)
 if [ $USERID -ne 0 ]; then
-    echo "ERROR:: You are not root user"
+    echo -e "$R ERROR$N:: You are not root user"
     exit 1
 fi
 
 VALIDATE () {
     if [ $1 -ne 0 ]; then
-        echo "$2 ...$R FAILED$N" | tee -a $LOG_FILE
+        echo -e "$2 ...$R FAILED$N" | tee -a $LOG_FILE
         exit 2
     else
-        echo "$2 ...$G SUCCESS$N" | tee -a $LOG_FILE
+        echo -e "$2 ...$G SUCCESS$N" | tee -a $LOG_FILE
     fi
 }
 
@@ -42,7 +42,7 @@ if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "Roboshop system user" roboshop
     VALIDATE $? "System user creation"
 else
-    echo "System user already exist ...$Y SKIPPING$N" | tee -a $LOG_FILE
+    echo -e "System user already exist ...$Y SKIPPING$N" | tee -a $LOG_FILE
 fi
 
 mkdir -p /app
@@ -86,7 +86,7 @@ if [ $INDEX -lt 0 ]; then
     mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
     VALIDATE $? "Load catalogue products"
 else
-    echo "Datebase is already loaded ...$Y SKIPPING$N" | tee -a $LOG_FILE
+    echo -e "Datebase is already loaded ...$Y SKIPPING$N" | tee -a $LOG_FILE
 fi
 
 systemctl restart catalogue
@@ -94,4 +94,4 @@ VALIDATE $? "Restarting catalogue service"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(( $END_TIME - $START_TIME ))
-echo "Total script execution time is $TOTAL_TIME" | tee -a $LOG_FILE
+echo -e "Total script execution time is $TOTAL_TIME" | tee -a $LOG_FILE
