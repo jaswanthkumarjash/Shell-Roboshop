@@ -1,5 +1,7 @@
 #!/bin/bash
 
+START_TIME=$(date +%s)
+
 USERID=$(id -u)
 if [ $USERID -ne 0 ]; then
     echo "ERROR:: You are not a root user to run this script"
@@ -46,3 +48,7 @@ VALIDATE $? "Allowing remote connections to MongoDB"
 
 systemctl restart mongod 
 VALIDATE $? "Restarting mongod service"
+
+END_TIME=$(date +%s)
+TOTAL_TIME=$(( $END_TIME - $START_TIME ))
+echo "Total script execution time is $TOTAL_TIME seconds" | tee -a $LOG_FILE
