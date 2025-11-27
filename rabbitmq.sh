@@ -43,9 +43,6 @@ systemctl start rabbitmq-server
 VALIDATE $? "Start Rabbitmq server"
 
 id roboshop &>> $LOG_FILE
-v=$(id roboshop)
-echo "$v"
-
 if [ $? -ne 0 ]; then
     rabbitmqctl add_user roboshop roboshop123 &>> $LOG_FILE
     VALIDATE $? "Adding roboshop user"
