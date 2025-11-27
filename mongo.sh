@@ -5,7 +5,7 @@ if [ $USERID -ne 0 ]; then
     echo "ERROR:: You are not a root user to run this script"
     exit 1
 fi
-
+path=$PWD
 LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
@@ -29,7 +29,7 @@ VALIDATE () {
     fi
 }
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo
+cp $path/mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding mongo repo"
 
 dnf install mongodb-org -y &>> $LOG_FILE
