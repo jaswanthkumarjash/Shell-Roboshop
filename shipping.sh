@@ -62,7 +62,7 @@ mvn clean package &>> $LOG_FILE
 VALIDATE $? "Installing dependencies"
 
 mv target/shipping-1.0.jar shipping.jar 
-VALIDATE $? "Moving shiiping.jar file"
+VALIDATE $? "Moving shipping.jar file"
 
 cp $FILE_PATH/shipping.service /etc/systemd/system/shipping.service
 VALIDATE $? "Creating shipping service"
