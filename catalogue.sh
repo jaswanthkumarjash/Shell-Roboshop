@@ -2,7 +2,7 @@
 
 START_TIME=$(date +%s)
 
-path=$PWD
+PATH=$PWD
 
 R="\e[31m"
 G="\e[32m"
@@ -51,7 +51,7 @@ mkdir -p /app
 VALIDATE $? "Creating app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>> $LOG_FILE
-VALIDATE $? "Downloading app code"
+VALIDATE $? "Downloading catalogue application code"
 
 rm -rf /app/*
 VALIDATE $? "Removing the existing code"
@@ -60,12 +60,12 @@ cd /app
 VALIDATE $? "Moving into /app directory"
 
 unzip /tmp/catalogue.zip &>> $LOG_FILE
-VALIDATE $? "Unzipping the app code"
+VALIDATE $? "Unzipping the catalogue application code"
 
 npm install &>> $LOG_FILE
 VALIDATE $? "Installing dependencies"
 
-cp $path/catalogue.service /etc/systemd/system/catalogue.service
+cp $PATH/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Creating systemd service"
 
 systemctl daemon-reload
@@ -77,7 +77,7 @@ VALIDATE $? "Enabling catalogue service"
 systemctl start catalogue
 VALIDATE $? "Starting catalogue service"
 
-cp $path/mongo.repo /etc/yum.repos.d/mongo.repo
+cp $PATH/mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding mongo repo"
 
 dnf install mongodb-mongosh -y &>> $LOG_FILE
@@ -96,4 +96,4 @@ VALIDATE $? "Restarting catalogue service"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(( $END_TIME - $START_TIME ))
-echo -e "Total script execution time is $TOTAL_TIME" | tee -a $LOG_FILE
+echo -e "Total script execution time is $TOTAL_TIME seconds" | tee -a $LOG_FILE
