@@ -15,16 +15,16 @@ mkdir -p $LOG_FOLDER
 
 USERID=$(id -u)
 if [ $USERID -ne 0 ]; then
-    echo "$R ERROR$N:: You are not root user"
+    echo -e "$R ERROR$N:: You are not root user"
     exit 1
 fi
 
 VALIDATE () {
     if [ $1 -ne 0 ]; then
-        echo "$2 ...$R FAILED$N" | tee -a $LOG_FILE
+        echo -e "$2 ...$R FAILED$N" | tee -a $LOG_FILE
         exit 2
     else
-        echo "$2 ...$G SUCCESS$N" | tee -a $LOG_FILE
+        echo -e "$2 ...$G SUCCESS$N" | tee -a $LOG_FILE
     fi
 }
 
