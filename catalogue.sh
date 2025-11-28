@@ -97,4 +97,4 @@ VALIDATE $? "Restarting catalogue service"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(( $END_TIME - $START_TIME ))
-echo "Total script execution time is $TOTAL_TIME seconds" | tee -a $LOG_FILE
+echo "Total script execution time is $TOTAL_TIME seconds"

@@ -61,7 +61,7 @@ pip3 install -r requirements.txt &>> $LOG_FILE
 VALIDATE $? "Installing dependencies"
 
 cp $FILE_PATH/payment.service /etc/systemd/system/payment.service
-VALIDATE $? "Creating parment service"
+VALIDATE $? "Creating payment service"
 
 systemctl daemon-reload
 VALIDATE $? "Daemon reload"
