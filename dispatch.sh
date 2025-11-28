@@ -66,7 +66,7 @@ VALIDATE $? "Update the dependencies"
 go build &>> $LOG_FILE
 VALIDATE $? "Compile and make it executable"
 
-cp $FILE_PATH/dispath.service /etc/systemd/system/dispatch.service
+cp $FILE_PATH/dispatch.service /etc/systemd/system/dispatch.service
 VALIDATE $? "Creating dispatch service"
 
 systemctl daemon-reload
