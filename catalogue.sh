@@ -86,7 +86,6 @@ VALIDATE $? "Installing mongo client"
 INDEX=$(mongosh mongo.jaswanthjash12.shop --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
 if [ $INDEX -le 0 ]; then
     mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
-    VALIDATE $? "Load catalogue products"
 else
     echo -e "Datebase is already loaded ...$Y SKIPPING$N" | tee -a $LOG_FILE
 fi
