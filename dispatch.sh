@@ -31,7 +31,7 @@ VALIDATE () {
 }
 
 
-dnf install golang -y
+dnf install golang -y &>> $LOG_FILE
 VALIDATE $? "Installing Golang"
 
 id roboshop &>> $LOG_FILE
@@ -45,22 +45,22 @@ fi
 mkdir /app 
 VALIDATE $? "Creating app directory"
 
-curl -L -o /tmp/dispatch.zip https://roboshop-artifacts.s3.amazonaws.com/dispatch-v3.zip 
+curl -L -o /tmp/dispatch.zip https://roboshop-artifacts.s3.amazonaws.com/dispatch-v3.zip &>> $LOG_FILE
 VALIDATE $? "Downloading dispatch application"
 
 cd /app 
 VALIDATE $? "Moving into app directory"
 
-unzip /tmp/dispatch.zip
+unzip /tmp/dispatch.zip &>> $LOG_FILE
 VALIDATE $? "Unzipping dispatch application file"
 
-go mod init dispatch
+go mod init dispatch &>> $LOG_FILE
 VALIDATE $? "Initialize dispatch module"
 
-go get 
+go get &>> $LOG_FILE
 VALIDATE $? "Update the dependencies"
 
-go build
+go build &>> $LOG_FILE
 VALIDATE $? "Compile and make it executable"
 
 cp $FILE_PATH/dispath.service /etc/systemd/system/dispatch.service
@@ -69,7 +69,7 @@ VALIDATE $? "Creating dispatch service"
 systemctl daemon-reload
 VALIDATE $? "Daemon reload"
 
-systemctl enable dispatch 
+systemctl enable dispatch &>> $LOG_FILE
 VALIDATE $? "Enabling dispatch service"
 
 systemctl start dispatch
