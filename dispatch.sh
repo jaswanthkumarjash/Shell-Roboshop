@@ -51,6 +51,9 @@ VALIDATE $? "Downloading dispatch application"
 cd /app 
 VALIDATE $? "Moving into app directory"
 
+rm -rf /app/* &>> $LOG_FILE
+VALIDATE $? "Removing existing code"
+
 unzip /tmp/dispatch.zip &>> $LOG_FILE
 VALIDATE $? "Unzipping dispatch application file"
 

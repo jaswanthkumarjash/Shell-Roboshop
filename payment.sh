@@ -51,6 +51,9 @@ VALIDATE $? "Downloading payment application code"
 cd /app 
 VALIDATE $? "Moving into app directory"
 
+rm -rf /app/* &>> $LOG_FILE
+VALIDATE $? "Removing existing code"
+
 unzip /tmp/payment.zip &>> $LOG_FILE
 VALIDATE $? "Unzipping payment application file"
 
