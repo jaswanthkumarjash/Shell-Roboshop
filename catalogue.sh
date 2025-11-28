@@ -13,6 +13,8 @@ LOG_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
 
+MONGODB_HOST=mongo.jaswanthjash12.shop
+
 mkdir -p $LOG_FOLDER
 
 USERID=$(id -u)
@@ -83,7 +85,7 @@ VALIDATE $? "Adding mongo repo"
 dnf install mongodb-mongosh -y &>> $LOG_FILE
 VALIDATE $? "Installing mongo client"
 
-INDEX=$(mongosh mongo.jaswanthjash12.shop --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
+INDEX=$(mongosh $MONGODB_HOST --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')")
 if [ $INDEX -le 0 ]; then
     mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOG_FILE
 else
